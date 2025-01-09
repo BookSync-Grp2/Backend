@@ -21,10 +21,16 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private Date dateJoined;
 
     @Column(nullable = false)
     private boolean isValidated;
+
+    @Column(nullable = false)
+    private Role roleType;
 
     public long getId() {
         return id;
@@ -38,11 +44,17 @@ public class User {
     public String getEmail() {
         return email;
     }
+    public String getPassword() {
+        return password;
+    }
     public Date getDateJoined() {
         return dateJoined;
     }
     public boolean isValidated() {
         return isValidated;
+    }
+    public Role getRoleType() {
+        return roleType;
     }
 
     public void setFirstName(String firstName) {
@@ -54,13 +66,18 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public void setDateJoined(Date dateJoined) {
         this.dateJoined = dateJoined;
     }
     public void setValidated(boolean isValidated) {
         this.isValidated = isValidated;
     }
-
+    public void setRoleType(Role roleType) {
+        this.roleType = roleType;
+    }
 }
 
 
