@@ -1,5 +1,6 @@
 package com.booksync.backend.controller;
 
+import com.booksync.backend.model.Role;
 import com.booksync.backend.model.User;
 import com.booksync.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,10 @@ public class UserController {
         customUser.setFirstName("John");
         customUser.setLastName("Doe");
         customUser.setEmail("johnDoe@email.com");
+        customUser.setPassword("password");
         customUser.setDateJoined(new Date());
         customUser.setValidated(true);
+        customUser.setRoleType(Role.USER);
         userRepository.save(customUser);
 
         return ResponseEntity.ok("User John Doe created successfully");
