@@ -22,10 +22,10 @@ public class AuthService {
 
     private final String SECRET_KEY = "3vfuaiCNZF54s98q6ppnzMp4KTPdPyFTkYeRUejdu4QS32FSCXW4J8Q";
 
-    public User register(User user) {
+    public void register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setDateJoined(new Date());
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public String authenticate(String email, String password) {
