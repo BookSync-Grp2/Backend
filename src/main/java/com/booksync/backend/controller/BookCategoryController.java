@@ -2,7 +2,6 @@ package com.booksync.backend.controller;
 
 import com.booksync.backend.model.BookCategory;
 import com.booksync.backend.repository.BookCategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +13,11 @@ import java.util.List;
 @RequestMapping("/api/book-category")
 public class BookCategoryController {
 
-    @Autowired
-    private BookCategoryRepository bookCategoryRepository;
+    private final BookCategoryRepository bookCategoryRepository;
+
+    public BookCategoryController(BookCategoryRepository bookCategoryRepository) {
+        this.bookCategoryRepository = bookCategoryRepository;
+    }
 
     @GetMapping("")
     public ResponseEntity<List<BookCategory>> getLoans() {

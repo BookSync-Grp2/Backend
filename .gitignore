@@ -35,3 +35,6 @@ build/
 ### Database ###
 src/main/resources/database/database.db
 src/main/resources/database/database.db-journal
+
+### Secrets ###
+src/main/resources/application-secrets.properties
