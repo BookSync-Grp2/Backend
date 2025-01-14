@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,11 +22,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Désactivation CSRF pour une API REST
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/register").permitAll() // Public endpoints
-                        .requestMatchers("/admin/**").hasRole("ADMIN")      // Admin endpoints
-                        .anyRequest().authenticated()                  // Tout le reste nécessite une authentification
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // Admin endpoints
+                        .anyRequest().authenticated()  // Tout le reste nécessite une authentification
                 )
-                .httpBasic(httpBasic -> httpBasic.disable())       // Désactivation HTTP Basic
-                .formLogin(form -> form.disable())                // Pas de formulaire login natif
+                .httpBasic(AbstractHttpConfigurer::disable)  // Désactivation HTTP Basic
+                .formLogin(AbstractHttpConfigurer::disable)  // Pas de formulaire login natif
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless: Utilisation de JWT
         return http.build();
     }
