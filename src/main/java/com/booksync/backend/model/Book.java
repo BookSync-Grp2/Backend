@@ -21,7 +21,7 @@ public class Book {
     private String ISBN;
 
     @Column(nullable = false)
-    private Date publishedYear;
+    private int publishedYear;
 
     @Column(nullable = false)
     private boolean isAvailable;
@@ -38,7 +38,7 @@ public class Book {
     public String getISBN() {
         return ISBN;
     }
-    public Date getPublishedYear() {
+    public int getPublishedYear() {
         return publishedYear;
     }
     public boolean isAvailable() {
@@ -54,7 +54,7 @@ public class Book {
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
-    public void setPublishedYear(Date publishedYear) {
+    public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
     }
     public void setAvailable(boolean available) {
