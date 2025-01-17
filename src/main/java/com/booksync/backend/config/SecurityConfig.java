@@ -19,17 +19,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Désactivation CSRF pour une API REST
+                .csrf(AbstractHttpConfigurer::disable) // Désactivation CSRF pour une API REST
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless: Utilisation de JWT
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/register").permitAll() // Public endpoints
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Admin endpoints
-                        .anyRequest().authenticated()  // Tout le reste nécessite une authentification
+                        .requestMatchers("/auth/**").permitAll()  // match all auth routes
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)  // Désactivation HTTP Basic
-                .formLogin(AbstractHttpConfigurer::disable)  // Pas de formulaire login natif
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Stateless: Utilisation de JWT
+                .formLogin(AbstractHttpConfigurer::disable) ; // Pas de formulaire login natif
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
