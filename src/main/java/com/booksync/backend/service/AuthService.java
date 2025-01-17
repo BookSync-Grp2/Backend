@@ -33,7 +33,7 @@ public class AuthService {
     public AuthService(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            @Value("${SECRET_KEY}") String SECRET_KEY
+            @Value("${jwt.secret}") String SECRET_KEY
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
