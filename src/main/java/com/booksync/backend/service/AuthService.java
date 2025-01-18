@@ -47,9 +47,18 @@ public class AuthService {
      * @param user The user entity to be registered
      */
     public void register(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setDateJoined(new Date());
-        userRepository.save(user);
+
+        User userToSave = new User();
+        userToSave.setFirstName(user.getFirstName());
+        userToSave.setLastName(user.getLastName());
+        userToSave.setEmail(user.getEmail());
+        userToSave.setPassword(passwordEncoder.encode(user.getPassword()));
+        userToSave.setDateJoined(new Date());
+        userToSave.setValidated(false);
+        userToSave.setRoleType(user.getRoleType());
+
+        userRepository.save(userToSave);
     }
 
     /**
@@ -64,11 +73,16 @@ public class AuthService {
     public String authenticate(String email, String password) {
         Optional<User> user = userRepository.findByEmail(email);
 
+/*        System.out.println(password);
+        System.out.println(user.get().getPassword());
+        System.out.println(passwordEncoder.matches(password, user.get().getPassword()));*/
+
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
             return generateToken(user.get());
         }
         throw new RuntimeException("Invalid email or password");
     }
+
 
     /**
      * Generates a JWT token for a specified user.
@@ -87,14 +101,11 @@ public class AuthService {
     private String generateToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
-                .claim("id", user.getId())
-                .claim("firstName", user.getFirstName())
-                .claim("lastName", user.getLastName())
-                .claim("role", user.getRoleType())
-                .claim("dateJoined", user.getDateJoined())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 heures
                 .signWith(key)
                 .compact();
     }
 }
+
+
