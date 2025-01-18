@@ -1,5 +1,6 @@
 package com.booksync.backend.controller;
 
+import com.booksync.backend.dto.UserDTO;
 import com.booksync.backend.dto.UserUpdateRequest;
 import com.booksync.backend.model.Loan;
 import com.booksync.backend.model.User;
@@ -8,6 +9,8 @@ import com.booksync.backend.service.LoanService;
 import com.booksync.backend.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -103,5 +106,15 @@ public class UserController {
     @PostMapping("/create")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
+    }
+
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        User user = userService.getUserByEmail(userEmail);
+        return ResponseEntity.ok(UserDTO.fromUser(user));
     }
 }
