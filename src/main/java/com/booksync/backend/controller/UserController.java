@@ -82,22 +82,6 @@ public class UserController {
     }
 
     /**
-     * Retrieves all loans associated with a specific user.
-     *
-     * @param id The ID of the user whose loans to retrieve
-     * @return ResponseEntity containing a list of the user's loans if found, or a not found response
-     */
-    @GetMapping("/{id}/loans")
-    public ResponseEntity<List<Loan>> getUserLoans(@PathVariable Long id) {
-        try {
-            List<Loan> loans = loanService.getUserLoans(id);
-            return ResponseEntity.ok(loans);
-        } catch (EntityNotFoundException e){
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    /**
      * Creates a new user in the system.
      *
      * @param user The user entity to create
