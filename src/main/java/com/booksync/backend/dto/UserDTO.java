@@ -12,7 +12,7 @@ public class UserDTO {
     private String email;
     private Date dateJoined;
     private boolean isValidated;
-    private Role roleType;
+    private Role role;
 
     public long getId() {
         return id;
@@ -62,12 +62,12 @@ public class UserDTO {
         isValidated = validated;
     }
 
-    public Role getRoleType() {
-        return roleType;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleType(Role roleType) {
-        this.roleType = roleType;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public static UserDTO fromUser(User user) {
@@ -78,7 +78,7 @@ public class UserDTO {
         dto.setEmail(user.getEmail());
         dto.setDateJoined(user.getDateJoined());
         dto.setValidated(user.isValidated());
-        dto.setRoleType(user.getRoleType());
+        dto.setRole(user.getRole());
         return dto;
     }
 }
