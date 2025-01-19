@@ -56,7 +56,7 @@ public class AuthService {
         userToSave.setPassword(passwordEncoder.encode(user.getPassword()));
         userToSave.setDateJoined(new Date());
         userToSave.setValidated(false);
-        userToSave.setRoleType(user.getRoleType());
+        userToSave.setRole(user.getRole());
 
         userRepository.save(userToSave);
     }

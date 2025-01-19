@@ -29,8 +29,9 @@ public class User {
     @Column(nullable = false)
     private boolean isValidated;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role roleType;
+    private Role role;
 
     public long getId() {
         return id;
@@ -53,8 +54,8 @@ public class User {
     public boolean isValidated() {
         return isValidated;
     }
-    public Role getRoleType() {
-        return roleType;
+    public Role getRole() {
+        return role;
     }
 
     public void setFirstName(String firstName) {
@@ -75,8 +76,8 @@ public class User {
     public void setValidated(boolean isValidated) {
         this.isValidated = isValidated;
     }
-    public void setRoleType(Role roleType) {
-        this.roleType = roleType;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", dateJoined=" + dateJoined +
                 ", isValidated=" + isValidated +
-                ", roleType=" + roleType +
+                ", role=" + role +
                 '}';
     }
 }
