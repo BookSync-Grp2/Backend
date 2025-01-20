@@ -46,7 +46,7 @@ public class UserController {
      *
      * @return ResponseEntity containing a list of all users
      */
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
@@ -80,6 +80,20 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
 
     /**
      * Creates a new user in the system.

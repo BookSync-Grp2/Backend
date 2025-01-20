@@ -30,7 +30,7 @@ public class LoanController {
         this.loanService = loanService;
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<Loan>> getLoans() {
         return ResponseEntity.ok(loanRepository.findAll());
     }
