@@ -38,8 +38,8 @@ public class BookController {
         return ResponseEntity.ok(bookRepository.findById(id).orElse(null));
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<Book>> getLoans() {
+    @GetMapping("/all")
+    public ResponseEntity<List<Book>> getBooks() {
         return ResponseEntity.ok(bookRepository.findAll());
     }
 
