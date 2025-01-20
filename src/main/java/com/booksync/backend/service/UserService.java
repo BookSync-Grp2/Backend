@@ -41,4 +41,11 @@ public class UserService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
+
+    public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new EntityNotFoundException("User not found with id: " + userId);
+        }
+        userRepository.deleteById(userId);
+    }
 }
