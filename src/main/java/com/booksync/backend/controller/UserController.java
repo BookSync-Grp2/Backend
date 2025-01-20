@@ -1,6 +1,5 @@
 package com.booksync.backend.controller;
 
-import com.booksync.backend.dto.LoanDTO;
 import com.booksync.backend.dto.UserDTO;
 import com.booksync.backend.dto.UserUpdateRequest;
 import com.booksync.backend.model.User;
