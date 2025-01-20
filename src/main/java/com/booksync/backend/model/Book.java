@@ -2,8 +2,6 @@ package com.booksync.backend.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 @Table(name  = "Book")
 public class Book {
@@ -19,9 +17,6 @@ public class Book {
 
     @Column(nullable = false)
     private String ISBN;
-
-    @Column(nullable = false)
-    private String coverUrl;
 
     @Column(nullable = false)
     private int publishedYear;
@@ -41,9 +36,6 @@ public class Book {
     public String getISBN() {
         return ISBN;
     }
-    public String getCoverUrl() {
-        return coverUrl;
-    }
     public int getPublishedYear() {
         return publishedYear;
     }
@@ -60,9 +52,6 @@ public class Book {
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl;
-    }
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
     }
@@ -77,7 +66,6 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", ISBN='" + ISBN + '\'' +
-                ", coverUrl='" + coverUrl + '\'' +
                 ", publishedYear=" + publishedYear +
                 ", isAvailable=" + isAvailable +
                 '}';

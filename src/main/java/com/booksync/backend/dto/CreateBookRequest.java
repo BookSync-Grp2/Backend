@@ -4,7 +4,6 @@ public class CreateBookRequest {
     private String title;
     private String author;
     private String isbn;
-    private String coverUrl;
     private int publishedYear;
 
     public String getTitle() {
@@ -29,14 +28,6 @@ public class CreateBookRequest {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
-    }
-
-    public String getCoverUrl() {
-        return coverUrl;
-    }
-
-    public void setCoverUrl(String coverUrl) {
-        this.coverUrl = coverUrl;
     }
 
     public int getPublishedYear() {

@@ -27,7 +27,6 @@ public class BookService {
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
         book.setISBN(request.getIsbn());
-        book.setCoverUrl(request.getCoverUrl());
         book.setPublishedYear(request.getPublishedYear());
         book.setAvailable(true);
 
