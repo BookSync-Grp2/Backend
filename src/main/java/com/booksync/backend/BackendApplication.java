@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EntityScan("com.booksync.backend.model")
 @EnableJpaRepositories(basePackages = "com.booksync.backend.repository")
-@PropertySource("classpath:application-secrets.properties")
+@PropertySource(value = "classpath:application-secrets.properties", ignoreResourceNotFound = true)
 public class BackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
