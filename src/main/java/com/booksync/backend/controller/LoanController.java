@@ -81,4 +81,28 @@ public class LoanController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping("/{id}/return")
+    public ResponseEntity<LoanDTO> returnLoan(@PathVariable Long id) {
+        try {
+            Loan loan = loanService.returnLoan(id);
+            return ResponseEntity.ok(new LoanDTO(loan));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping("/{id}/retrieve")
+    public ResponseEntity<LoanDTO> retrieveLoan(@PathVariable Long id) {
+        try {
+            Loan loan = loanService.retrieveLoan(id);
+            return ResponseEntity.ok(new LoanDTO(loan));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

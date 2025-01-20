@@ -66,4 +66,18 @@ public class LoanService {
 
         return loanRepository.save(loan);
     }
+
+    public Loan returnLoan(Long id){
+        Loan loan = loanRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Loan not found with id: " + id));
+        loan.setReturned(true);
+        return loanRepository.save(loan);
+    }
+
+    public Loan retrieveLoan(Long id){
+        Loan loan = loanRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Loan not found with id: " + id));
+        loan.setRetrieved(true);
+        return loanRepository.save(loan);
+    }
 }
