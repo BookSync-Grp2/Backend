@@ -29,7 +29,7 @@ public class SecurityConfig {
 
     private final SecretKey key;
 
-    public SecurityConfig(@Value("${jwt.secret:${JWT_SECRET}}") String SECRET_KEY) {
+    public SecurityConfig(@Value("${jwt.secret}") String SECRET_KEY) {
         this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
