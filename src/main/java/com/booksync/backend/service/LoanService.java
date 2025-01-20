@@ -1,5 +1,6 @@
 package com.booksync.backend.service;
 
+import com.booksync.backend.model.Book;
 import com.booksync.backend.model.Loan;
 import com.booksync.backend.repository.BookRepository;
 import com.booksync.backend.repository.LoanRepository;
@@ -27,7 +28,18 @@ public class LoanService {
         if(!userRepository.existsById(userId)){
             throw new EntityNotFoundException("User not found with id: " + userId);
         }
-        return loanRepository.findCurrentLoansByUserId(userId, new Date());
+        return getAllUserLoans(userId).stream()
+                .filter(loan -> !loan.isReturned())
+                .toList();
+    }
+
+    public List<Loan> getPreviousUserLoans(Long userId){
+        if(!userRepository.existsById(userId)){
+            throw new EntityNotFoundException("User not found with id: " + userId);
+        }
+        return getAllUserLoans(userId).stream()
+                .filter(Loan::isReturned)
+                .toList();
     }
 
     public List<Loan> getAllUserLoans(Long userId) {
@@ -71,6 +83,9 @@ public class LoanService {
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Loan not found with id: " + id));
         loan.setReturned(true);
+        Book book = bookRepository.findById(loan.getBookId())
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + loan.getBookId()));
+        book.setAvailable(true);
         return loanRepository.save(loan);
     }
 

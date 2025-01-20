@@ -62,6 +62,17 @@ public class LoanController {
         return user.getId();
     }
 
+    @GetMapping("/previous")
+    public ResponseEntity<List<LoanDTO>> getPreviousUserLoans(Authentication authentication) {
+        Long userId = getUserIdFromAuthentication(authentication);
+        List<Loan> loans = loanService.getPreviousUserLoans(userId);
+        List<LoanDTO> loanDTOs = loans.stream()
+                .map(LoanDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(loanDTOs);
+    }
+
+
     @PostMapping("/create")
     public ResponseEntity<LoanDTO> createLoan(
             @RequestBody CreateLoanRequest request,
