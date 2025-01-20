@@ -19,10 +19,6 @@ public class BookService {
     public Book createBook(CreateBookRequest request) {
         System.out.println(request.getIsbn());
 
-        if (bookRepository.existsByISBN(request.getIsbn())) {
-            throw new IllegalStateException("Book with ISBN " + request.getIsbn() + " already exists");
-        }
-
         Book book = new Book();
         book.setTitle(request.getTitle());
         book.setAuthor(request.getAuthor());
