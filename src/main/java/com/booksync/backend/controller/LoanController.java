@@ -35,20 +35,20 @@ public class LoanController {
         return ResponseEntity.ok(loanRepository.findAll());
     }
 
-    @GetMapping("/current")
-    public ResponseEntity<List<LoanDTO>> getCurrentUserLoans(Authentication authentication) {
+    @GetMapping("/all/user")
+    public ResponseEntity<List<LoanDTO>> getAllUserLoans(Authentication authentication) {
         Long userId = getUserIdFromAuthentication(authentication);
-        List<Loan> loans = loanService.getCurrentUserLoans(userId);
+        List<Loan> loans = loanService.getAllUserLoans(userId);
         List<LoanDTO> loanDTOs = loans.stream()
                 .map(LoanDTO::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(loanDTOs);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<LoanDTO>> getAllUserLoans(Authentication authentication) {
+    @GetMapping("/current")
+    public ResponseEntity<List<LoanDTO>> getCurrentUserLoans(Authentication authentication) {
         Long userId = getUserIdFromAuthentication(authentication);
-        List<Loan> loans = loanService.getAllUserLoans(userId);
+        List<Loan> loans = loanService.getCurrentUserLoans(userId);
         List<LoanDTO> loanDTOs = loans.stream()
                 .map(LoanDTO::new)
                 .collect(Collectors.toList());
