@@ -30,6 +30,8 @@ jobs:
           dockerfile: Dockerfile
           push: false
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/booksync-back:latest
+          build-args: |
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
 
       - name: login to docker hub
         uses: docker/login-action@v1
