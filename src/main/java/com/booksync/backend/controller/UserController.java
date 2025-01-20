@@ -1,11 +1,10 @@
 package com.booksync.backend.controller;
 
+import com.booksync.backend.dto.LoanDTO;
 import com.booksync.backend.dto.UserDTO;
 import com.booksync.backend.dto.UserUpdateRequest;
-import com.booksync.backend.model.Loan;
 import com.booksync.backend.model.User;
 import com.booksync.backend.repository.UserRepository;
-import com.booksync.backend.service.LoanService;
 import com.booksync.backend.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 
 /**
  * REST controller for managing User-related operations.
@@ -25,19 +23,16 @@ import java.util.List;
 public class UserController {
 
     private final UserRepository userRepository;
-    private final LoanService loanService;
     private final UserService userService;
 
     /**
      * Constructs a new UserController with required dependencies.
      *
      * @param userRepository Repository for user data access
-     * @param loanService Service for managing loan operations
      * @param userService Service for managing user operations
      */
-    public UserController(UserRepository userRepository, LoanService loanService, UserService userService) {
+    public UserController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
-        this.loanService = loanService;
         this.userService = userService;
     }
 
@@ -91,9 +86,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-
 
     /**
      * Creates a new user in the system.
