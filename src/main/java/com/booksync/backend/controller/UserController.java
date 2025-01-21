@@ -75,7 +75,12 @@ public class UserController {
         }
     }
 
-
+    /**
+     * Deletes a user from the system.
+     *
+     * @param id The ID of the user to delete
+     * @return ResponseEntity with success status if deleted, or not found response
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         try {
@@ -97,7 +102,11 @@ public class UserController {
         return userRepository.save(user);
     }
 
-
+    /**
+     * Retrieves the currently authenticated user's information.
+     *
+     * @return ResponseEntity containing the current user's DTO
+     */
     @GetMapping("/me")
     public ResponseEntity<UserDTO> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

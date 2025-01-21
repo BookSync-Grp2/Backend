@@ -73,10 +73,6 @@ public class AuthService {
     public String authenticate(String email, String password) {
         Optional<User> user = userRepository.findByEmail(email);
 
-/*        System.out.println(password);
-        System.out.println(user.get().getPassword());
-        System.out.println(passwordEncoder.matches(password, user.get().getPassword()));*/
-
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
             return generateToken(user.get());
         }
@@ -102,7 +98,7 @@ public class AuthService {
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 heures
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(key)
                 .compact();
     }
