@@ -23,16 +23,32 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * Configuration class for security settings, including JWT authentication, password encoding,
+ * and CORS configuration.
+ */
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 
     private final SecretKey key;
 
+    /**
+     * Initializes the security configuration with a JWT secret key.
+     * @param SECRET_KEY The secret key used for JWT token signing
+     */
     public SecurityConfig(@Value("${jwt.secret}") String SECRET_KEY) {
         this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Configures the security filter chain for HTTP requests.
+     * Sets up CORS, disables CSRF for REST API, configures stateless session management,
+     * adds JWT authentication, and defines endpoint access rules.
+     *
+     * @param http The HttpSecurity object to configure
+     * @return The built SecurityFilterChain
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -50,16 +66,31 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Provides the password encoder bean for secure password hashing.
+     * @return BCryptPasswordEncoder instance for password encryption
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // Pour chiffrer les mots de passe
     }
 
+    /**
+     * Creates the authentication manager bean for handling authentication requests.
+     * @param authConfig The authentication configuration
+     * @return The configured AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    /**
+     * Configures CORS settings for the application.
+     * Allows all origins (*), common HTTP methods, and necessary headers including Authorization.
+     *
+     * @return CorsConfigurationSource with the defined CORS settings
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
